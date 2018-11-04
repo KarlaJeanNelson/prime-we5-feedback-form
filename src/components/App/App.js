@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
 import './App.css';
-import { BrowserRouter }
+import { HashRouter as Router, Route } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Header from '../Header/Header';
+// import Background from '../Background/Background'
+import Home from '../Home/Home';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Feedback!</h1>
-          <h4><i>Don't forget it!</i></h4>
-        </header>
-      </div>
+			<Router>
+				<div className="App">
+					<CssBaseline />
+					<Header />
+					{/* <Background /> */}
+					<Route exact path='/' component = {Home} />
+					{/* <Route path='/pg1' component = {Feeling} /> */}
+					{/* <Route path='/pg2' component = {Understanding} /> */}
+					{/* <Route path='/pg3' component = {Support} /> */}
+					{/* <Route path='/pg4' component = {Comments} /> */}
+				</div>
+			</Router>
     );
   }
 }
