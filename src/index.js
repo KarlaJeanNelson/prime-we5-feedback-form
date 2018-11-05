@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
+// import axios from 'axios';
 
 // Material UI and css
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -18,16 +19,16 @@ import 'typeface-karla';
 import 'typeface-share-tech-mono';
 import './index.css';
 
-const initialState = {
-	message: 'Welcome to Feedback Frenzy!',
-	feeling: 0,
-	understanding: 0,
-	support: 0,
-	comments: '',
-	nextPage: '',
-}
+// const initialState = {
+// 	message: 'Welcome to Feedback Frenzy!',
+// 	feeling: 0,
+// 	understanding: 0,
+// 	support: 0,
+// 	comments: '',
+// 	nextPage: '',
+// }
 
-const feedbackApp = (state = initialState, action) => {
+const feedbackApp = (state = {}, action) => {
 	switch (action.type) {
 		case 'SET_STATE':
 			state.message = action.message;
@@ -46,8 +47,7 @@ const feedbackApp = (state = initialState, action) => {
 			state.comments = action.comments;
 			return state;
 		case 'CLEAR_STATE':
-			state = undefined;
-			state = initialState;
+			state = {};
 			return state;
 		default:
 			return state;
@@ -55,16 +55,19 @@ const feedbackApp = (state = initialState, action) => {
 }
 
 const adminList = (state = [], action) => {
-	if (action.type === 'LIST_FEEDBACK') {
-		state = action.payload;
+	switch (action.type) {
+		case 'LIST_FEEDBACK':
+			state = action.payload;
+			return state;
+		default:
+			return state;
 	}
-	return state;
 }
 
 const store = createStore(
 	combineReducers({
 		feedbackApp,
-		adminList
+		adminList,
 	}),
 	applyMiddleware(logger)
 )

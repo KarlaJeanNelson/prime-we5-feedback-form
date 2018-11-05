@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+// import axios from 'axios';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -36,28 +36,6 @@ const styles = theme => ({
 });
 
 class App extends Component {
-	componentDidMount() {
-		this.getFeedback();
-	}
-	// Get feedback list from the database and send to redux store
-	getFeedback = () => {
-		axios({
-			method: 'GET',
-			url: '/feedback',
-		})
-		.then((result) => {
-			console.log(`GET from database successful!`, result);
-			this.props.dispatch({
-				type: 'LIST_FEEDBACK',
-				payload: result.data
-			})
-		})
-		.catch((error) => {
-			alert(`UH OH! Something went wrong!`)
-			console.log(error);
-		})
-	}
-
   render() {
 		const { classes } = this.props
     return (
