@@ -47,6 +47,7 @@ const feedbackApp = (state = initialState, action) => {
 			return state;
 		case 'CLEAR_STATE':
 			state = undefined;
+			state = initialState;
 			return state;
 		default:
 			return state;
