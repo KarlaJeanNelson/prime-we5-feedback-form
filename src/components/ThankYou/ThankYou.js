@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
@@ -32,7 +31,7 @@ const mapReduxStateToProps = (reduxState) => ({ reduxState })
 
 class ThankYou extends Component {
 
-	submitFeedback = (e) => {
+	goToNext = (e) => {
 		e.preventDefault();
 		// console.log(this.props);
 		this.props.history.push(this.props.reduxState.feedbackApp.nextPage)

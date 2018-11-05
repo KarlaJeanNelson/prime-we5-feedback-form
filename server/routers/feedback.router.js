@@ -7,37 +7,36 @@ router.get('/', (req, res) => {
     const sqlText = `SELECT * FROM feedback ORDER BY created_at DESC;`;
     pool.query(sqlText)
         .then((result) => {
-            console.log(`Got stuff back from the database`, result);
+            console.log(`GET successful!`, result);
             res.send(result.rows);
         })
         .catch((error) => {
             console.log(`Error making database query ${sqlText}`, error);
-            res.sendStatus(500); // Good server always responds
+            res.sendStatus(500);
         })
 })
 
-
-// Setup a POST route to add a new employee to the database
+// POST route for adding feedback to the db
 router.post('/', (req, res) => {
-    const employee = req.body;
-    const sqlText = `INSERT INTO employees (firstName, lastName, jobTitle, annualSalary) VALUES 
+    const feedback = req.body;
+    const sqlText = `INSERT INTO feedback (feeling, understanding, support, comments) VALUES 
   ($1, $2, $3, $4)`;
-    pool.query(sqlText, [employee.firstName, employee.lastName, employee.jobTitle, employee.annualSalary])
+    pool.query(sqlText, [feedback.feeling, feedback.understanding, feedback.support, feedback.comments])
         .then((result) => {
-            console.log(`Added to the database`, employee);
-            res.sendStatus(201);
+            console.log(`Added feedback to database`, result);
+            res.sendStatus(201)
         })
         .catch((error) => {
             console.log(`Error making database query ${sqlText}`, error);
-            res.sendStatus(500); // Good server always responds
+            res.sendStatus(500);
         })
 })
 
-// Setup DELETE to remove an employee
+// DELETE route for removing feedback
 router.delete('/:id', (req, res) => {
     let reqId = req.params.id;
     console.log('Delete request for id', reqId);
-    let sqlText = 'DELETE FROM employees WHERE id=$1;';
+    let sqlText = 'DELETE FROM feedback WHERE id=$1;';
     pool.query(sqlText, [reqId])
         .then((result) => {
             res.sendStatus(200);
