@@ -30,17 +30,13 @@ class Admin extends Component {
 	// Clear redux state when Admin view entered
 	componentWillMount() {
 		console.log(this.props);
-		this.clearReduxState();
+		this.props.dispatch({
+			type: 'CLEAR_STATE',
+		})
 	}
 
 	componentDidMount() {
 		this.getFeedback();
-	}
-
-	clearReduxState = () => {
-		this.props.dispatch({
-			type: 'CLEAR_STATE',
-		})
 	}
 	
 	// Get feedback list from the database and send to redux store
