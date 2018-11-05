@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { Button } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
+import { FormLabel } from '@material-ui/core';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 import blue from '@material-ui/core/colors/blue';
 
@@ -21,7 +21,10 @@ const styles = theme => ({
 	},
 	leftIcon: {
     marginRight: theme.spacing.unit,
-  },
+	},
+	content: {
+		textAlign: 'center'
+	}
 });
 
 const mapReduxStateToProps = (reduxState) => ({ reduxState })
@@ -31,7 +34,7 @@ class Home extends Component {
 	goToNext = (e) => {
 		e.preventDefault();
 		// console.log(this.props);
-		this.props.history.push(this.state.nextPage)
+		this.props.history.push(this.props.reduxState.feedbackApp.nextPage)
 	}
 
 	componentWillMount() {
@@ -48,9 +51,11 @@ class Home extends Component {
 		console.log(this.props);
     return (
 			<div className={classes.root}>
-				<Grid container className={classes.grid}>
-					<Grid item>
-						<Typography>{this.state.message}</Typography>
+				<Grid container className={classes.grid} spacing={8}>
+					<Grid item xs={12} className={classes.content}>
+						<FormLabel>{this.props.reduxState.feedbackApp.message}</FormLabel>
+					</Grid>
+					<Grid item xs={12} className={classes.content}>
 						<Button
 							variant="contained"
 							color="secondary"

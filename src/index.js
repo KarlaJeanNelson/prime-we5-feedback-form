@@ -36,6 +36,15 @@ const feedbackApp = (state = initialState, action) => {
 		case 'SET_FEELING':
 			state.feeling = action.feeling;
 			return state;
+		case 'SET_UNDERSTANDING':
+			state.understanding = action.understanding;
+			return state;
+		case 'SET_SUPPORT':
+			state.support = action.support;
+			return state;
+		case 'SET_COMMENTS':
+			state.comments = action.comments;
+			return state;
 		default:
 			return state;
 	}

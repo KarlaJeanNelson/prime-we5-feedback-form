@@ -8,7 +8,8 @@ import { Grid } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors'
 import Header from '../Header/Header';
 import Home from '../Home/Home';
-import Feeling from '../Feeling/Feeling'
+import Feeling from '../Feeling/Feeling';
+import Understanding from '../Understanding/Understanding';
 import './App.css';
 
 const styles = theme => ({
@@ -42,7 +43,7 @@ class App extends Component {
 						<Grid item xs={12} sm={8}>
 							<Route exact path='/' component = {Home} />
 							<Route path='/pg1' component = {Feeling} />
-							{/* <Route path='/pg2' component = {Understanding} /> */}
+							<Route path='/pg2' component = {Understanding} />
 							{/* <Route path='/pg3' component = {Support} /> */}
 							{/* <Route path='/pg4' component = {Comments} /> */}
 						</Grid>
