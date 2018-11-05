@@ -51,6 +51,7 @@ class Comments extends Component {
 			comments: this.state.comments
 		})
 		this.writeToDb()
+		this.clearReduxState()
 		// console.log(this.props);		
 		this.props.history.push(this.props.reduxState.feedbackApp.nextPage)
 	}
@@ -67,6 +68,12 @@ class Comments extends Component {
 		.catch((error) => {
 			alert(`UH OH! Something went wrong!`)
 			console.log(error);
+		})
+	}
+
+	clearReduxState = () => {
+		this.props.dispatch({
+			type: 'CLEAR_STATE',
 		})
 	}
 
