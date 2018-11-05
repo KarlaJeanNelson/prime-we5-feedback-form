@@ -4,6 +4,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 
+// Material UI and css
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red'
 import deepOrange from '@material-ui/core/colors/deepOrange';
@@ -23,19 +24,21 @@ const initialState = {
 	understanding: 0,
 	support: 0,
 	comments: '',
-	page: 1,
+	nextPage: '',
 }
 
 const feedbackApp = (state = initialState, action) => {
 	switch (action.type) {
+		case 'SET_STATE':
+			state.message = action.message;
+			state.nextPage = action.nextPage;
+			return state;
 		case 'SET_FEELING':
-			state = [...state, action.payload]
-			break;
-	
+			state.feeling = action.feeling;
+			return state;
 		default:
-			break;
+			return state;
 	}
-	return state;
 }
 
 const store = createStore(
@@ -50,7 +53,10 @@ const theme = createMuiTheme({
 		primary: lightGreen,
 		secondary: blue,
 	},
-	error: red[800], // red[800]
+	typography: {
+		useNextVariants: true,
+	},
+	error: red[800],
   status: {
 		danger: deepOrange,
 		warning: amber.A400
