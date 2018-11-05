@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     const sqlText = `SELECT * FROM feedback ORDER BY created_at DESC;`;
     pool.query(sqlText)
         .then((result) => {
-            console.log(`GET successful!`, result);
+            // console.log(`GET successful!`, result);
             res.send(result.rows);
         })
         .catch((error) => {
@@ -45,6 +45,21 @@ router.delete('/:id', (req, res) => {
             console.log(`Error making database query ${sqlText}`, error);
             res.sendStatus(500); 
         })
+})
+
+// PUT router for flagging feedback for follow-up
+router.put('/:id', (req, res) => {
+	let reqId = req.params.id;
+	const sqlText = `UPDATE feedback SET flagged = NOT flagged WHERE id=$1`
+	// console.log(`IN PUT ROUTER`, req.body);
+	pool.query(sqlText, [reqId])
+		.then((result) => {
+			res.sendStatus(200);
+		})
+		.catch((error) => {
+			console.log(`Error making database query ${sqlText}`, error);
+			res.sendStatus(500);
+		})
 })
 
 module.exports = router;

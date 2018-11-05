@@ -6,14 +6,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Checkbox from '@material-ui/core/Checkbox'
-import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
 import red from '@material-ui/core/colors/red';
+import AdminListItem from '../AdminListItem/AdminListItem';
 
 const styles = theme => ({
   root: {
@@ -65,23 +62,6 @@ class Admin extends Component {
 		})
 	}
 
-	deleteFeedback = (id) => {
-		const confirm = window.confirm(`Are you sure you want to delete this feedback item?`);
-		if (confirm) {
-			axios({
-				method: 'DELETE',
-				url: `/feedback/${id}`
-			})
-			.then((result) => {
-				this.getFeedback();
-			})			
-			.catch((error) => {
-				alert('UH OH! Something went wrong while deleting that record!');
-				console.log(`Delete error:`, error);
-			})
-		}
-	}
-
 	render() {
 		const { classes } = this.props;
 		// console.log(this.state);
@@ -101,26 +81,7 @@ class Admin extends Component {
 									<TableCell>Delete</TableCell>
 								</TableRow>
 							</TableHead>
-							<TableBody>
-									{this.props.reduxState.adminList.map((feedback) => (
-										<TableRow key={feedback.id}>
-											<TableCell>{feedback.date}</TableCell>
-											<TableCell>{feedback.feeling}</TableCell>
-											<TableCell>{feedback.understanding}</TableCell>
-											<TableCell>{feedback.support}</TableCell>
-											<TableCell>{feedback.comments}</TableCell>
-											<TableCell>
-												<Checkbox />
-											</TableCell>
-											<TableCell>
-												<Button variant="fab" mini className={classes.delete}
-													onClick={() => this.deleteFeedback(feedback.id)}>
-													<DeleteIcon />
-												</Button>
-											</TableCell>
-										</TableRow>
-									))}
-							</TableBody>
+							<AdminListItem />
 						</Table>
 					</Card>
 				</Grid>
