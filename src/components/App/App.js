@@ -11,7 +11,8 @@ import Home from '../Home/Home';
 import Feeling from '../Feeling/Feeling';
 import Understanding from '../Understanding/Understanding';
 import Support from '../Support/Support';
-import Comments from '../Comments/Comments'
+import Comments from '../Comments/Comments';
+import ThankYou from '../ThankYou/ThankYou';
 import './App.css';
 
 const styles = theme => ({
@@ -48,6 +49,7 @@ class App extends Component {
 							<Route path='/pg2' component = {Understanding} />
 							<Route path='/pg3' component = {Support} />
 							<Route path='/pg4' component = {Comments} />
+							<Route path='/done' component = {ThankYou} />
 						</Grid>
 						<Grid item sm={2}></Grid>
 					</Grid>

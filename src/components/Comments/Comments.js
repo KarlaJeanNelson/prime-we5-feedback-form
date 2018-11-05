@@ -7,6 +7,7 @@ import { Card, CardContent, CardActions } from '@material-ui/core';
 import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
+import Axios from 'axios';
 
 const styles = theme => ({
   root: {
@@ -29,24 +30,35 @@ class Comments extends Component {
 		this.props.dispatch({
 			type: 'SET_STATE',
 			message: 'Please leave some comments!',
-			nextPage: '/',
+			nextPage: '/done',
 		});
+		this.setState({
+			comments: ''
+		})
 	}
 
 	handleChange = (e) => {
 		e.preventDefault()
-		this.props.dispatch({
-			type: 'SET_COMMENTS',
+		this.setState({
 			comments: e.target.value
 		})
-		this.setState({})
 	}
 
-	goToNext = (e) => {
+	submitFeedback = (e) => {
 		e.preventDefault();
-		// console.log(this.props);
-		
+		this.props.dispatch({
+			type: 'SET_COMMENTS',
+			comments: this.state.comments
+		})
+		this.writeToDb()
+		// console.log(this.props);		
 		this.props.history.push(this.props.reduxState.feedbackApp.nextPage)
+	}
+
+	writeToDb = () => {
+		axios({
+
+		}
 	}
 
 	render() {
@@ -66,12 +78,13 @@ class Comments extends Component {
 									multiline
 									rows="4"
 									variant="outlined"
+									onChange={this.handleChange}
 								/>
 						</CardContent>
 						<CardActions>
 							<Button variant="contained" color="secondary"
-								disabled={this.props.reduxState.feedbackApp.comments===''}
-								onClick={this.goToNext}>
+								disabled={this.state.comments===''}
+								onClick={this.submitFeedback}>
 									Submit
 							</Button>
 						</CardActions>
