@@ -38,4 +38,12 @@ if (process.env.DATABASE_URL) {
     };
 }
 
+pool.on('connect', () => {
+	console.log('Connected to the database');
+});
+
+pool.on('error', (error) => {
+	console.log('Error with database pool', error);
+});
+
 module.exports = new pg.Pool(config);
