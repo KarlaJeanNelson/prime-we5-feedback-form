@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
@@ -29,9 +30,9 @@ const styles = theme => ({
 
 const mapReduxStateToProps = (reduxState) => ({ reduxState })
 
-class Home extends Component {
+class ThankYou extends Component {
 
-	goToNext = (e) => {
+	submitFeedback = (e) => {
 		e.preventDefault();
 		// console.log(this.props);
 		this.props.history.push(this.props.reduxState.feedbackApp.nextPage)
@@ -40,7 +41,7 @@ class Home extends Component {
 	componentWillMount() {
 		this.props.dispatch({
 			type: 'SET_STATE',
-			message: 'Welcome to Feedback Frenzy!',
+			message: 'Thank you for your feedback!',
 			nextPage: '/pg1'
 		})
 	}
@@ -61,7 +62,7 @@ class Home extends Component {
 							size="large"
 							onClick={this.goToNext}>
 								<FeedbackIcon className={classes.leftIcon}/>
-								Leave Feedback
+								Leave New Feedback
 						</Button>
 					</Grid>
 				</Grid>
@@ -70,8 +71,8 @@ class Home extends Component {
   }
 }
 
-Home.propTypes = {
+ThankYou.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default connect(mapReduxStateToProps)(withStyles(styles)(Home));
+export default connect(mapReduxStateToProps)(withStyles(styles)(ThankYou));

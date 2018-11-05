@@ -45,6 +45,9 @@ const feedbackApp = (state = initialState, action) => {
 		case 'SET_COMMENTS':
 			state.comments = action.comments;
 			return state;
+		case 'CLEAR_STATE':
+			state = undefined;
+			return state;
 		default:
 			return state;
 	}
