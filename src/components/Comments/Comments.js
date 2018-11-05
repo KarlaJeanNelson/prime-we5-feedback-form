@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -7,7 +8,6 @@ import { Card, CardContent, CardActions } from '@material-ui/core';
 import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
-import Axios from 'axios';
 
 const styles = theme => ({
   root: {
@@ -57,8 +57,17 @@ class Comments extends Component {
 
 	writeToDb = () => {
 		axios({
-
-		}
+			method: 'POST',
+			url: '/feedback',
+			data: this.props.reduxState.feedbackApp
+		})
+		.then((results) => {
+			console.log(`POST to database successful!`, results);
+		})
+		.catch((error) => {
+			alert(`UH OH! Something went wrong!`)
+			console.log(error);
+		})
 	}
 
 	render() {
