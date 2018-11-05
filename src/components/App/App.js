@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { HashRouter as Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
@@ -13,6 +14,7 @@ import Understanding from '../Understanding/Understanding';
 import Support from '../Support/Support';
 import Comments from '../Comments/Comments';
 import ThankYou from '../ThankYou/ThankYou';
+import Admin from '../Admin/Admin';
 import './App.css';
 
 const styles = theme => ({
@@ -34,6 +36,28 @@ const styles = theme => ({
 });
 
 class App extends Component {
+	componentDidMount() {
+		this.getFeedback();
+	}
+	// Get feedback list from the database and send to redux store
+	getFeedback = () => {
+		axios({
+			method: 'GET',
+			url: '/feedback',
+		})
+		.then((result) => {
+			console.log(`GET from database successful!`, result);
+			this.props.dispatch({
+				type: 'LIST_FEEDBACK',
+				payload: result.data
+			})
+		})
+		.catch((error) => {
+			alert(`UH OH! Something went wrong!`)
+			console.log(error);
+		})
+	}
+
   render() {
 		const { classes } = this.props
     return (
@@ -42,16 +66,15 @@ class App extends Component {
 					<CssBaseline />
 					<Header />
 					<Grid container className={classes.bg}>
-						<Grid item sm={2}></Grid>
-						<Grid item xs={12} sm={8}>
+						<Grid item xs={12}>
 							<Route exact path='/' component = {Home} />
 							<Route path='/pg1' component = {Feeling} />
 							<Route path='/pg2' component = {Understanding} />
 							<Route path='/pg3' component = {Support} />
 							<Route path='/pg4' component = {Comments} />
 							<Route path='/done' component = {ThankYou} />
+							<Route path='/admin' component = {Admin} />
 						</Grid>
-						<Grid item sm={2}></Grid>
 					</Grid>
 				</div>
 			</Router>
@@ -63,4 +86,4 @@ App.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(App);
+export default connect()(withStyles(styles)(App));

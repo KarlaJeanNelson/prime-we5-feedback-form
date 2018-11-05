@@ -23,6 +23,7 @@ const styles = theme => ({
 class Header extends Component {
   render() {
 		const { classes } = this.props;
+		// console.log(window.location.hash);
     return (
 			<header className={classes.root}>
 				<AppBar position="sticky" color="primary">

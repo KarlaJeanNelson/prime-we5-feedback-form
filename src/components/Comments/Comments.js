@@ -24,6 +24,9 @@ const styles = theme => ({
 
 const mapReduxStateToProps = (reduxState) => ({ reduxState })
 
+// Set state and then retrieve it to display message
+// I realize now that this doesn't really make sense,
+// but I was fiddling with ways to have fewer pages to render
 class Comments extends Component {
 	componentWillMount() {
 		console.log(this.props);

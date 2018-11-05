@@ -54,9 +54,17 @@ const feedbackApp = (state = initialState, action) => {
 	}
 }
 
+const adminList = (state = [], action) => {
+	if (action.type === 'LIST_FEEDBACK') {
+		state = action.payload;
+	}
+	return state;
+}
+
 const store = createStore(
 	combineReducers({
-		feedbackApp
+		feedbackApp,
+		adminList
 	}),
 	applyMiddleware(logger)
 )
