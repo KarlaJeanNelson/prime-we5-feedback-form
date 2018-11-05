@@ -10,6 +10,7 @@ import Header from '../Header/Header';
 import Home from '../Home/Home';
 import Feeling from '../Feeling/Feeling';
 import Understanding from '../Understanding/Understanding';
+import Support from '../Support/Support';
 import './App.css';
 
 const styles = theme => ({
@@ -44,7 +45,7 @@ class App extends Component {
 							<Route exact path='/' component = {Home} />
 							<Route path='/pg1' component = {Feeling} />
 							<Route path='/pg2' component = {Understanding} />
-							{/* <Route path='/pg3' component = {Support} /> */}
+							<Route path='/pg3' component = {Support} />
 							{/* <Route path='/pg4' component = {Comments} /> */}
 						</Grid>
 						<Grid item sm={2}></Grid>
