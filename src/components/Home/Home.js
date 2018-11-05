@@ -31,18 +31,22 @@ const mapReduxStateToProps = (reduxState) => ({ reduxState })
 
 class Home extends Component {
 
-	goToNext = (e) => {
-		e.preventDefault();
-		// console.log(this.props);
-		this.props.history.push(this.props.reduxState.feedbackApp.nextPage)
-	}
-
+	// Set state and then retrieve it to display message
+	// I realize now that this doesn't really make sense,
+	// but I was fiddling with ways to have fewer pages to render
 	componentWillMount() {
 		this.props.dispatch({
 			type: 'SET_STATE',
 			message: 'Welcome to Feedback Frenzy!',
 			nextPage: '/pg1'
 		})
+	}
+
+	// Go to next page when the "next" button is clicked
+	goToNext = (e) => {
+		e.preventDefault();
+		// console.log(this.props);
+		this.props.history.push(this.props.reduxState.feedbackApp.nextPage)
 	}
 
   render() {
