@@ -10,8 +10,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import Button from '@material-ui/core/Button';
-// import MoodIcon from '@material-ui/icons/Mood';
-// import MoodBadIcon from '@material-ui/icons/MoodBad';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import MoodIcon from '@material-ui/icons/Mood';
+import MoodBadIcon from '@material-ui/icons/MoodBad';
 
 const styles = theme => ({
   root: {
@@ -24,12 +25,6 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
 	},
 });
-
-// const initialState = {
-// 	message: 'How are you feeling?',
-// 	nextPage: '/pg2',
-// 	feeling: 0,
-// }
 
 const mapReduxStateToProps = (reduxState) => ({ reduxState })
 
@@ -74,11 +69,19 @@ class Feeling extends Component {
 									value={this.props.reduxState.feedbackApp.feeling}
 									onChange={this.handleChange}
 									row>
-										<FormControlLabel value="1" control={<Radio />} label="1" />
-										<FormControlLabel value="2" control={<Radio />} label="2" />
-										<FormControlLabel value="3" control={<Radio />} label="3" />
-										<FormControlLabel value="4" control={<Radio />} label="4" />
-										<FormControlLabel value="5" control={<Radio />} label="5" />
+										<FormControlLabel value="1" label="1" control=
+											{<Radio 
+												icon={<MoodBadIcon />}
+												checkedIcon={<RadioButtonCheckedIcon />}
+											/>} />
+										<FormControlLabel value="2" label="2" control={<Radio />} />
+										<FormControlLabel value="3" label="3" control={<Radio />} />
+										<FormControlLabel value="4" label="4" control={<Radio />} />
+										<FormControlLabel value="5" label="5" control=
+											{<Radio 
+												icon={<MoodIcon />}
+												checkedIcon={<RadioButtonCheckedIcon />}
+											/>} />
 								</RadioGroup>
 							</FormControl>
 						</CardContent>
