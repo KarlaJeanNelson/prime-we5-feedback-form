@@ -87,7 +87,7 @@ class Support extends Component {
 							</FormControl>
 						</CardContent>
 						<CardActions>
-							<Button variant="contained" color="secondary"
+							<Button variant="contained" color="primary"
 								disabled={!this.props.reduxState.feedbackApp.support}
 								onClick={this.goToNext}>
 									Next
