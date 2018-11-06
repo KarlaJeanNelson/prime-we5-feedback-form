@@ -6,24 +6,21 @@ import { Grid } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { FormLabel } from '@material-ui/core';
 import FeedbackIcon from '@material-ui/icons/Feedback';
-import blue from '@material-ui/core/colors/blue';
+import TopSpacer from '../TopSpacer/TopSpacer';
 
 const styles = theme => ({
   root: {
 		flexGrow: 1,
 	},
-	grid: {
-		alignContent: 'center',
-		alignItems: 'center',
-		background: blue[100],
+	container: {
+		flexGrow: 1,
 		justify: 'center',
-		minHeight: '88vh'
-	},
+},
 	leftIcon: {
     marginRight: theme.spacing.unit,
 	},
 	content: {
-		textAlign: 'center'
+		textAlign: 'center',
 	}
 });
 
@@ -38,7 +35,7 @@ class Home extends Component {
 		this.props.dispatch({
 			type: 'SET_STATE',
 			message: 'Welcome to Feedback Frenzy!',
-			nextPage: '/pg1'
+			nextPage: '/feeling'
 		})
 	}
 
@@ -54,7 +51,8 @@ class Home extends Component {
 		console.log(this.props);
     return (
 			<div className={classes.root}>
-				<Grid container className={classes.grid} spacing={8}>
+				<TopSpacer />
+				<Grid container className={classes.container} spacing={16}>
 					<Grid item xs={12} className={classes.content}>
 						<FormLabel>{this.props.reduxState.feedbackApp.message}</FormLabel>
 					</Grid>

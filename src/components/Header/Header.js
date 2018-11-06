@@ -37,7 +37,7 @@ class Header extends Component {
 		// console.log(window.location.hash);
     return (
 			<header className={classes.root}>
-				<AppBar position="sticky" color="secondary">
+				<AppBar position="fixed" color="secondary">
 					<Toolbar>
 						<IconButton>
 							<MenuIcon />
