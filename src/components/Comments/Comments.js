@@ -85,7 +85,8 @@ class Comments extends Component {
 		// console.log(this.state);
 		return (
 			<Grid container className={classes.root}>
-				<Grid item xs={12}>
+				<Grid item sm={2}></Grid>
+				<Grid item xs={12} sm={8}>
 					<Card className={classes.paper}>
 						<CardContent>
 								<FormLabel component="legend">{this.props.reduxState.feedbackApp.message}</FormLabel>
@@ -109,6 +110,7 @@ class Comments extends Component {
 						</CardActions>
 					</Card>
 				</Grid>
+				<Grid item sm={2}></Grid>
 			</Grid>
 		);
 	}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+// import moment from 'moment';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 // import Grid from '@material-ui/core/Grid';
@@ -107,29 +108,28 @@ class AdminListItem extends Component {
 		// console.log(this.state);
 		
 		return (
-							<TableBody>
-									{this.props.reduxState.adminList.map((feedback) => (
-										<TableRow key={feedback.id}>
-											<TableCell>{feedback.date}</TableCell>
-											<TableCell>{feedback.feeling}</TableCell>
-											<TableCell>{feedback.understanding}</TableCell>
-											<TableCell>{feedback.support}</TableCell>
-											<TableCell>{feedback.comments}</TableCell>
-											<TableCell>
-												<Checkbox
-													onChange={this.flagFeedback(feedback.id)}
-													checked={feedback.flagged}/>
-											</TableCell>
-											<TableCell>
-												<Button variant="fab" mini className={classes.delete}
-													onClick={() => this.deleteFeedback(feedback.id)}>
-													<DeleteIcon />
-												</Button>
-											</TableCell>
-										</TableRow>
-									))}
-							</TableBody>
-						
+			<TableBody>
+					{this.props.reduxState.adminList.map((feedback) => (
+						<TableRow key={feedback.id}>
+							<TableCell>{feedback.date}</TableCell>
+							<TableCell>{feedback.feeling}</TableCell>
+							<TableCell>{feedback.understanding}</TableCell>
+							<TableCell>{feedback.support}</TableCell>
+							<TableCell>{feedback.comments}</TableCell>
+							<TableCell>
+								<Checkbox
+									onChange={this.flagFeedback(feedback.id)}
+									checked={feedback.flagged}/>
+							</TableCell>
+							<TableCell>
+								<Button variant="fab" mini className={classes.delete}
+									onClick={() => this.deleteFeedback(feedback.id)}>
+									<DeleteIcon />
+								</Button>
+							</TableCell>
+						</TableRow>
+					))}
+			</TableBody>						
 		);
 	}
 }

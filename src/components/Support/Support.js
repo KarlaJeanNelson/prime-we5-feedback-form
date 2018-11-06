@@ -58,7 +58,8 @@ class Support extends Component {
 		// console.log(this.state);
 		return (
 			<Grid container className={classes.root}>
-				<Grid item xs={12}>
+				<Grid item sm={2}></Grid>
+				<Grid item xs={12} sm={8}>
 					<Card className={classes.paper}>
 						<CardContent>
 							<FormControl component="fieldset">
@@ -87,13 +88,14 @@ class Support extends Component {
 						</CardContent>
 						<CardActions>
 							<Button variant="contained" color="secondary"
-								disabled={this.props.reduxState.feedbackApp.support===0}
+								disabled={!this.props.reduxState.feedbackApp.support}
 								onClick={this.goToNext}>
 									Next
 							</Button>
 						</CardActions>
 					</Card>
 				</Grid>
+				<Grid item sm={2}></Grid>
 			</Grid>
 		);
 	}
