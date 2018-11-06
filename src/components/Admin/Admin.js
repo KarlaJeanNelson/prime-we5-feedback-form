@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -9,10 +10,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Checkbox from '@material-ui/core/Checkbox'
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import FlagIcon from '@material-ui/icons/Flag';
 import red from '@material-ui/core/colors/red';
 
 const styles = theme => ({
@@ -23,7 +23,7 @@ const styles = theme => ({
 		padding: theme.spacing.unit * 2,
 	},
 	delete: {
-		color: red,
+		color: red[900],
 	}
 });
 
@@ -36,10 +36,50 @@ class Admin extends Component {
 		this.clearReduxState();
 	}
 
+	componentDidMount() {
+		this.getFeedback();
+	}
+
 	clearReduxState = () => {
 		this.props.dispatch({
 			type: 'CLEAR_STATE',
 		})
+	}
+	
+	// Get feedback list from the database and send to redux store
+	getFeedback = () => {
+		axios({
+			method: 'GET',
+			url: '/feedback',
+		})
+		.then((result) => {
+			console.log(`GET from database successful!`, result);
+			this.props.dispatch({
+				type: 'LIST_FEEDBACK',
+				payload: result.data
+			})
+		})
+		.catch((error) => {
+			alert(`UH OH! Something went wrong!`)
+			console.log(`GET error`, error);
+		})
+	}
+
+	deleteFeedback = (id) => {
+		const confirm = window.confirm(`Are you sure you want to delete this feedback item?`);
+		if (confirm) {
+			axios({
+				method: 'DELETE',
+				url: `/feedback/${id}`
+			})
+			.then((result) => {
+				this.getFeedback();
+			})			
+			.catch((error) => {
+				alert('UH OH! Something went wrong while deleting that record!');
+				console.log(`Delete error:`, error);
+			})
+		}
 	}
 
 	render() {
@@ -70,12 +110,11 @@ class Admin extends Component {
 											<TableCell>{feedback.support}</TableCell>
 											<TableCell>{feedback.comments}</TableCell>
 											<TableCell>
-												<IconButton>
-													<FlagIcon />
-												</IconButton>
+												<Checkbox />
 											</TableCell>
 											<TableCell>
-												<Button variant="fab" mini className={classes.delete}>
+												<Button variant="fab" mini className={classes.delete}
+													onClick={() => this.deleteFeedback(feedback.id)}>
 													<DeleteIcon />
 												</Button>
 											</TableCell>
