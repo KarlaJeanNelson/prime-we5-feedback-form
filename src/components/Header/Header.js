@@ -37,7 +37,7 @@ class Header extends Component {
 		// console.log(window.location.hash);
     return (
 			<header className={classes.root}>
-				<AppBar position="sticky" color="primary">
+				<AppBar position="sticky" color="secondary">
 					<Toolbar>
 						<IconButton>
 							<MenuIcon />
@@ -45,7 +45,7 @@ class Header extends Component {
 						<Typography className={classes.title}>
 							Feedback <ThumbsUpDownIcon /> Frenzy
 						</Typography>
-						<Button variant="contained" color="secondary"
+						<Button variant="contained" color="primary"
 							component={Link} to={this.buttonPath()}>
 							{/* {this.buttonIcon()} */}
 							{this.buttonText()}

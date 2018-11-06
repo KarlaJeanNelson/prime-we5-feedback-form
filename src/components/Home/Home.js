@@ -61,7 +61,7 @@ class Home extends Component {
 					<Grid item xs={12} className={classes.content}>
 						<Button
 							variant="contained"
-							color="secondary"
+							color="primary"
 							size="large"
 							onClick={this.goToNext}>
 								<FeedbackIcon className={classes.leftIcon}/>

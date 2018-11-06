@@ -87,7 +87,7 @@ class Understanding extends Component {
 							</FormControl>
 						</CardContent>
 						<CardActions>
-							<Button variant="contained" color="secondary"
+							<Button variant="contained" color="primary"
 								disabled={!this.props.reduxState.feedbackApp.understanding}
 								onClick={this.goToNext}>
 									Next

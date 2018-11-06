@@ -102,7 +102,7 @@ class Comments extends Component {
 								/>
 						</CardContent>
 						<CardActions>
-							<Button variant="contained" color="secondary"
+							<Button variant="contained" color="primary"
 								disabled={this.state.comments===''}
 								onClick={this.submitFeedback}>
 									Submit

@@ -15,6 +15,7 @@ import Support from '../Support/Support';
 import Comments from '../Comments/Comments';
 import ThankYou from '../ThankYou/ThankYou';
 import Admin from '../Admin/Admin';
+// import FeedbackStepper from '../Stepper/Stepper'
 import './App.css';
 
 const styles = theme => ({
@@ -43,6 +44,7 @@ class App extends Component {
 				<div className={classes.root}>
 					<CssBaseline />
 					<Header />
+					{/* <FeedbackStepper /> */}
 					<Grid container className={classes.bg}>
 						<Grid item xs={12}>
 							<Route exact path='/' component = {Home} />
