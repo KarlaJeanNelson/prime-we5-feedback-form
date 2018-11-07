@@ -32,18 +32,12 @@ class Header extends Component {
 		buttonPath: '/admin'
 	}
 
-	// buttonText = () => ( window.location.hash !== '#/admin' ? 'admin view' : 'admin logout' )	
-	// buttonPath = () => ( window.location.hash !== '#/admin' ? '/admin' : '/')
-	// buttonIcon = () => ( window.location.hash !== '#/admin'
-	// ? <ViewListIcon className={classes.leftIcon} />
-	// : <HomeIcon className={classes.leftIcon} />)
-
-	buttonText = () => ( this.state.buttonText == 'admin logout'
+	buttonText = () => ( this.state.buttonText === 'admin logout'
 		? 'admin view'
 		: 'admin logout'
 	)
 
-	buttonPath = () => ( this.state.buttonPath == '/'
+	buttonPath = () => ( this.state.buttonPath === '/'
 		? '/admin'
 		: '/' )
 
