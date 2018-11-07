@@ -39,25 +39,27 @@ const styles = theme => ({
 const mapReduxStateToProps = (reduxState) => ({ reduxState })
 
 const vars = {
-	false: {
+	afterSubmit: {
 		message: 'Thank you for your feedback!',
-		buttonText: 'Leave Feedback'
-	},
-	true: {
-		message: 'Welcome to Feedback Frenzy!',
 		buttonText: 'Leave New Feedback'
+	},
+	beforeSubmit: {
+		message: 'Welcome to Feedback Frenzy!',
+		buttonText: 'Leave Feedback'
 	}
-}
-
-const formVars = () => {
-	return vars[this.props.reduxState.feedbackApp.submitted]
 }
 
 class Home extends Component {
 	state = {
 		open: false,
 		date: moment().format('YYYY-MM-DD'),
-  };
+		message: 'Shoot! Something went horribly wrong.',
+		buttonText: 'Do Not Panic',
+	};
+	
+	formVars = () => {
+		return this.props.reduxState.feedbackApp.submitted ? vars.afterSubmit : vars.beforeSubmit;
+	}
 
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -75,10 +77,6 @@ class Home extends Component {
 		e.preventDefault();
 		this.handleClose();
 		this.props.dispatch({
-			type: 'SET_DATE',
-			date: this.state.date
-		})
-		this.props.dispatch({
 			type: 'UPDATE_STATE',
 			key: 'date',
 			value: this.state.date
@@ -89,29 +87,30 @@ class Home extends Component {
 	// Go to next page when the "next" button is clicked
 	goToNext = (e) => {
 		// console.log(this.props);
-		this.props.history.push(this.props.reduxState.feedbackApp.nextPage)
+		// this.props.history.push(this.props.reduxState.feedbackApp.nextPage)
+		this.props.history.push('/test')
 	}
 	
 	// Set state and then retrieve it to display message
 	// I realize now that this doesn't really make sense,
 	// but I was fiddling with ways to have fewer pages to render
 	componentWillMount() {
-		this.props.dispatch({
-			type: 'SET_STATE',
-			message: 'Welcome to Feedback Frenzy!',
-			nextPage: '/feeling'
+		this.setState({
+			message: this.formVars().message,
+			buttonText: this.formVars().buttonText
 		})
+		// console.log(this.props)
 	}
 
   render() {
 		const { classes } = this.props;
-		console.log(this.props);
+		// console.log(this.props);
     return (
 			<div className={classes.root}>
 				<TopSpacer />
 				<Grid container className={classes.container} spacing={16}>
 					<Grid item xs={12} className={classes.content}>
-						<FormLabel>{this.props.reduxState.feedbackApp.message}</FormLabel>
+						<FormLabel>{this.state.message}</FormLabel>
 					</Grid>
 					<Grid item xs={12} className={classes.content}>
 						<Button
@@ -120,7 +119,7 @@ class Home extends Component {
 							size="large"
 							onClick={this.handleClickOpen}>
 								<FeedbackIcon className={classes.leftIcon}/>
-								Leave Feedback
+								{this.state.buttonText}
 						</Button>
 						<Dialog
 							open={this.state.open}

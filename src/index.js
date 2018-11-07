@@ -16,19 +16,21 @@ import App from './components/App/App';
 import registerServiceWorker from './registerServiceWorker';
 import 'typeface-roboto';
 import 'typeface-karla';
-import 'typeface-share-tech-mono';
-import 'typeface-cherry-swash';
 import './index.css';
 
 const feedbackApp = (state = {}, action) => {
 	switch (action.type) {
+		case 'UPDATE_HEADER':
+			state.buttonText = action.buttonText;
+			state.buttonPath = action.buttonPath;
+			return state;
 		case 'SET_DATE':
 			state.date = action.date;
-			state.submitted = false;
+			state.submitted = 0;
 			return state;
 		case 'UPDATE_STATE':
 			state[action.key] = action.value;
-			state.submitted = action.submitted || false;
+			state.submitted = action.submitted || 0;
 			return state;
 		case 'SET_STATE':
 			state.message = action.message;
@@ -48,7 +50,7 @@ const feedbackApp = (state = {}, action) => {
 			return state;
 		case 'CLEAR_STATE':
 			state = {};
-			state.submitted = true;
+			state.submitted = action.submitted || 0;
 			return state;
 		default:
 			return state;

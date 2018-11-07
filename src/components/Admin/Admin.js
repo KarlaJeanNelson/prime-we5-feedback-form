@@ -32,11 +32,17 @@ class Admin extends Component {
 		console.log(this.props);
 		this.props.dispatch({
 			type: 'CLEAR_STATE',
+			submitted: 0
 		})
 	}
 
 	componentDidMount() {
 		this.getFeedback();
+		this.props.dispatch({
+			type: 'UPDATE_HEADER',
+			buttonText: 'admin logout',
+			buttonPath: '/'
+		})
 	}
 	
 	// Get feedback list from the database and send to redux store

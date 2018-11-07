@@ -44,6 +44,7 @@ class AdminListItem extends Component {
 	clearReduxState = () => {
 		this.props.dispatch({
 			type: 'CLEAR_STATE',
+			submitted: 0,
 		})
 	}
 	
