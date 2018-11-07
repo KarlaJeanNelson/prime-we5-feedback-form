@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { Card, CardContent, CardActions } from '@material-ui/core';
 import { FormControl, FormLabel, FormControlLabel, RadioGroup, Radio, Tooltip } from '@material-ui/core';
@@ -48,10 +48,14 @@ class FeedbackStepper extends React.Component {
   handleNext = (e) => {
 		e.preventDefault()
 		this.handleDispatch()
-    this.setState(state => ({
-			activeStep: state.activeStep + 1,
-			value: this.getValue(state.activeStep + 1)
-		}));
+		if (this.state.activeStep === steps.length - 1) {
+			this.submitFeedback(e)
+		} else {
+			this.setState(state => ({
+				activeStep: state.activeStep + 1,
+				value: this.getValue(state.activeStep + 1)
+			}));
+		}    
   };
 
   handleBack = (e) => {
@@ -70,22 +74,45 @@ class FeedbackStepper extends React.Component {
 			value: {
 				name: steps[this.state.activeStep].name,
 				value: this.state.value,
-			}
+			},
 		})
 	}
-
-  handleReset = () => {
-    this.setState({
-			activeStep: 0,
-			value: ''
-    });
-	};
 	
 	handleUpdate = (e) => {
 		e.preventDefault();
 		// console.log(`in handleUpdate`);
 		this.setState({
 			value: e.target.value
+		})
+	}
+
+	submitFeedback = (e) => {
+		e.preventDefault();
+		this.writeToDb()
+		this.clearReduxState()
+		// console.log(this.props);		
+		this.props.history.push('/')
+	}
+
+	writeToDb = () => {
+		axios({
+			method: 'POST',
+			url: '/feedback',
+			data: this.props.reduxState.feedbackApp
+		})
+		.then((results) => {
+			console.log(`POST to database successful!`, results);
+		})
+		.catch((error) => {
+			alert(`UH OH! Something went wrong!`)
+			console.log(error);
+		})
+	}
+
+	clearReduxState = () => {
+		this.props.dispatch({
+			type: 'CLEAR_STATE',
+			submitted: 1,
 		})
 	}
 
@@ -115,16 +142,17 @@ class FeedbackStepper extends React.Component {
 					<CardContent>
 						{activeStep === steps.length - 1 ? (
 							<TextField
-										className={classes.textbox}
-										id="comments"
-										label={steps[this.state.activeStep].message}
-										placeholder="Karla is awesome!"
-										margin="normal"
-										multiline
-										rows="4"
-										variant="filled"
-										onChange={this.handleUpdate}
-									/>
+								className={classes.textbox}
+								id="comments"
+								label={steps[this.state.activeStep].message}
+								placeholder="Karla is awesome!"
+								margin="normal"
+								multiline
+								rows="4"
+								variant="filled"
+								onChange={this.handleUpdate}
+								value={this.state.value}
+							/>
 						) : (
 						<FormControl component="fieldset">
 							<FormLabel component="legend">{steps[this.state.activeStep].message}</FormLabel>
@@ -157,39 +185,22 @@ class FeedbackStepper extends React.Component {
 						</FormControl>)}
 					</CardContent>
 					<CardActions>
-						<div>
-							{activeStep === steps.length ? (
-								<div>
-									<Typography className={classes.instructions}>
-										All steps completed - you&quot;re finished
-									</Typography>
-									<Button onClick={this.handleReset} className={classes.button}>
-										Reset
-									</Button>
-								</div>
-							) : (
-								<div>
-									<div>
-										<Button
-											disabled={activeStep === 0}
-											onClick={this.handleBack}
-											className={classes.button}
-										>
-											Back
-										</Button>
-										<Button
-											variant="contained"
-											color="primary"
-											onClick={this.handleNext}
-											className={classes.button}
-											disabled={this.state.value===''}
-										>
-											{activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-										</Button>
-									</div>
-								</div>
-							)}
-						</div>
+						<Button
+							disabled={activeStep === 0}
+							onClick={this.handleBack}
+							className={classes.button}
+						>
+							Back
+						</Button>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={this.handleNext}
+							className={classes.button}
+							disabled={this.state.value===''}
+						>
+							{activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+						</Button>
 					</CardActions>
 				</Card>
       </div>
