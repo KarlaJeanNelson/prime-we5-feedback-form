@@ -8,7 +8,7 @@ require('dotenv').config();
 /** ---------- MIDDLEWARE ---------- **/
 app.use(bodyParser.json()); // needed for angular requests
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static('build'));
+app.use(express.static('src'));
 
 /** ---------- EXPRESS ROUTES ---------- **/
 app.use('/feedback', feedbackRouter)

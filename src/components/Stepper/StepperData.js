@@ -4,7 +4,7 @@ const feeling = {
 	radioForm: {
 		leftAnchor: 'I feel lousy...',
 		rightAnchor: 'I feel swell!',
-	}
+	},
 }
 
 const understanding = {
@@ -13,7 +13,7 @@ const understanding = {
 	radioForm: {
 		leftAnchor: 'I am totally lost...',
 		rightAnchor: 'I got this!'
-	}
+	},
 }
 
 const support = {
@@ -22,11 +22,12 @@ const support = {
 	radioForm: {
 		leftAnchor: 'I feel abandoned...',
 		rightAnchor: 'I feel loved!'
-	}
+	},
 }
 
 const comments = {
-	name: 'comments'
+	name: 'comments',
+	message: 'Please leave some comments!'
 }
 
 const steps = [
