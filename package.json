@@ -2,11 +2,12 @@
   "name": "react-reflection-board",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "@material-ui/core": "^3.3.2",
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.17.1",
+    "dot-env": "^0.0.1",
     "moment": "^2.22.2",
     "pg": "^7.4.1",
     "react": "^16.2.0",
@@ -16,6 +17,7 @@
     "react-scripts": "^2.1.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
+    "typeface-cherry-swash": "^0.0.54",
     "typeface-karla": "^0.0.54",
     "typeface-roboto": "^0.0.54",
     "typeface-share-tech-mono": "^0.0.54"

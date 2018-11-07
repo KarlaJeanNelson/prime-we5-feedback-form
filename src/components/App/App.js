@@ -13,7 +13,8 @@ import Support from '../Support/Support';
 import Comments from '../Comments/Comments';
 import ThankYou from '../ThankYou/ThankYou';
 import Admin from '../Admin/Admin';
-// import FeedbackStepper from '../Stepper/Stepper'
+// import FeedbackStepper from '../Stepper/Stepper';
+import Background from '../Background/Background';
 import './App.css';
 
 const styles = theme => ({
@@ -49,6 +50,7 @@ class App extends Component {
 							<Route path='/comments' component = {Comments} />
 							<Route path='/thankyou' component = {ThankYou} />
 							<Route path='/admin' component = {Admin} />
+							<Route path='/test' component = {Background} />
 						</Grid>
 					</Grid>
 				</div>

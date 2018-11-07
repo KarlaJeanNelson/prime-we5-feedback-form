@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Card, CardContent, CardActions } from '@material-ui/core';
-import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import TopSpacer from '../TopSpacer/TopSpacer';
@@ -22,6 +21,8 @@ const styles = theme => ({
 		width: '100%',
 	},
 });
+
+// https://unsplash.com/photos/QL0FAxaq2z0
 
 const mapReduxStateToProps = (reduxState) => ({ reduxState })
 
@@ -92,15 +93,15 @@ class Comments extends Component {
 					<Grid item xs={12} sm={8}>
 						<Card className={classes.paper}>
 							<CardContent>
-									<FormLabel component="legend">{this.props.reduxState.feedbackApp.message}</FormLabel>
 									<TextField
 										className={classes.textbox}
 										id="comments"
+										label={this.props.reduxState.feedbackApp.message}
 										placeholder="Karla is awesome!"
 										margin="normal"
 										multiline
 										rows="4"
-										variant="outlined"
+										variant="filled"
 										onChange={this.handleChange}
 									/>
 							</CardContent>
