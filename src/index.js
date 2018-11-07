@@ -24,6 +24,11 @@ const feedbackApp = (state = {}, action) => {
 	switch (action.type) {
 		case 'SET_DATE':
 			state.date = action.date;
+			state.submitted = false;
+			return state;
+		case 'UPDATE_STATE':
+			state[action.key] = action.value;
+			state.submitted = action.submitted || false;
 			return state;
 		case 'SET_STATE':
 			state.message = action.message;
@@ -43,6 +48,7 @@ const feedbackApp = (state = {}, action) => {
 			return state;
 		case 'CLEAR_STATE':
 			state = {};
+			state.submitted = true;
 			return state;
 		default:
 			return state;

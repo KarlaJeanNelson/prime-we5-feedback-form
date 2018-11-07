@@ -38,10 +38,25 @@ const styles = theme => ({
 
 const mapReduxStateToProps = (reduxState) => ({ reduxState })
 
+const vars = {
+	false: {
+		message: 'Thank you for your feedback!',
+		buttonText: 'Leave Feedback'
+	},
+	true: {
+		message: 'Welcome to Feedback Frenzy!',
+		buttonText: 'Leave New Feedback'
+	}
+}
+
+const formVars = () => {
+	return vars[this.props.reduxState.feedbackApp.submitted]
+}
+
 class Home extends Component {
 	state = {
 		open: false,
-		date: moment().format('YYYY-MM-DD')
+		date: moment().format('YYYY-MM-DD'),
   };
 
   handleClickOpen = () => {
@@ -62,6 +77,11 @@ class Home extends Component {
 		this.props.dispatch({
 			type: 'SET_DATE',
 			date: this.state.date
+		})
+		this.props.dispatch({
+			type: 'UPDATE_STATE',
+			key: 'date',
+			value: this.state.date
 		})
 		this.goToNext(e);
 	}
@@ -103,35 +123,35 @@ class Home extends Component {
 								Leave Feedback
 						</Button>
 						<Dialog
-						open={this.state.open}
-						onClose={this.handleClose}
-						aria-labelledby="choose-date"
-					>
-						<DialogTitle id="choose-date">Leave feedback for ...</DialogTitle>
-						<DialogContent>
-							<form className={classes.container} noValidate>
-								<TextField
-									id="date"
-									label="Date"
-									type="date"
-									className={classes.textField}
-									InputLabelProps={{
-										shrink: true,
-									}}
-									onChange={this.handleChange}
-									value={this.state.date}
-								/>
-							</form>
-						</DialogContent>
-						<DialogActions>
-							<Button onClick={this.handleClose} color="primary" variant="contained">
-								Cancel
-							</Button>
-							<Button onClick={this.handleOK} color="primary" variant="contained">
-								OK
-							</Button>
-						</DialogActions>
-					</Dialog>
+							open={this.state.open}
+							onClose={this.handleClose}
+							aria-labelledby="choose-date"
+						>
+							<DialogTitle id="choose-date">Leave feedback for ...</DialogTitle>
+							<DialogContent>
+								<form className={classes.container} noValidate>
+									<TextField
+										id="date"
+										label="Date"
+										type="date"
+										className={classes.textField}
+										InputLabelProps={{
+											shrink: true,
+										}}
+										onChange={this.handleChange}
+										value={this.state.date}
+									/>
+								</form>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={this.handleClose} color="primary" variant="contained">
+									Cancel
+								</Button>
+								<Button onClick={this.handleOK} color="primary" variant="contained">
+									OK
+								</Button>
+							</DialogActions>
+						</Dialog>
 					</Grid>
 				</Grid>
 			</div>
