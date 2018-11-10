@@ -28,8 +28,9 @@ const feedbackApp = (state = {}, action) => {
 			state.date = action.date;
 			state.submitted = 0;
 			return state;
-		case 'UPDATE_STATE':
+		case 'UPDATE_FEEDBACK':
 			state[action.key] = action.value;
+			state[action.value.name] = action.value.value;
 			state.submitted = action.submitted || 0;
 			return state;
 		case 'SET_STATE':

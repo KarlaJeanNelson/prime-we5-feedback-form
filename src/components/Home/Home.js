@@ -77,7 +77,7 @@ class Home extends Component {
 		e.preventDefault();
 		this.handleClose();
 		this.props.dispatch({
-			type: 'UPDATE_STATE',
+			type: 'UPDATE_FEEDBACK',
 			key: 'date',
 			value: this.state.date
 		})
