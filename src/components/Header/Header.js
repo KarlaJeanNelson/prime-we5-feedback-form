@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -18,7 +19,7 @@ const styles = theme => ({
 	},
 	title: {
 		flexGrow: 1,
-		fontFamily: "'Cherry Swash', sans-serif",
+		fontFamily: "'Karla', sans-serif",
 		fontSize: '2rem',
 		fontWeight: 'bold',
 		margin: theme.spacing.unit * 2
@@ -26,15 +27,43 @@ const styles = theme => ({
 });
 
 class Header extends Component {
-	buttonText = () => ( window.location.hash !== '#/admin' ? 'admin view' : 'admin logout' )	
-	buttonPath = () => ( window.location.hash !== '#/admin' ? '/admin' : '/')
+	state = {
+		buttonText: 'admin view',
+		buttonPath: '/admin'
+	}
+
+	// buttonText = () => ( window.location.hash !== '#/admin' ? 'admin view' : 'admin logout' )	
+	// buttonPath = () => ( window.location.hash !== '#/admin' ? '/admin' : '/')
 	// buttonIcon = () => ( window.location.hash !== '#/admin'
 	// ? <ViewListIcon className={classes.leftIcon} />
 	// : <HomeIcon className={classes.leftIcon} />)
 
+	buttonText = () => ( this.state.buttonText == 'admin logout'
+		? 'admin view'
+		: 'admin logout'
+	)
+
+	buttonPath = () => ( this.state.buttonPath == '/'
+		? '/admin'
+		: '/' )
+
+	updateStore = () => {
+		this.props.dispatch({
+			type: 'CLEAR_STATE',
+			submitted: 0,
+		})
+	}
+
+	toggleView = () => {
+		this.updateStore();
+		this.setState({
+			buttonText: this.buttonText(),
+			buttonPath: this.buttonPath()
+		})
+	}
+
   render() {
 		const { classes } = this.props;
-		// console.log(window.location.hash);
     return (
 			<header className={classes.root}>
 				<AppBar position="fixed" color="secondary">
@@ -46,9 +75,10 @@ class Header extends Component {
 							Feedback <ThumbsUpDownIcon /> Frenzy
 						</Typography>
 						<Button variant="contained" color="primary"
-							component={Link} to={this.buttonPath()}>
-							{/* {this.buttonIcon()} */}
-							{this.buttonText()}
+							component={Link} to={this.state.buttonPath}
+							onClick={this.toggleView}
+						>
+							{this.state.buttonText}
 						</Button>
 					</Toolbar>
 				</AppBar>
@@ -61,4 +91,4 @@ Header.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Header);
+export default connect()(withStyles(styles)(Header));

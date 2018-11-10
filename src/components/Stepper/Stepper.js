@@ -4,8 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+// import Button from '@material-ui/core/Button';
+// import Typography from '@material-ui/core/Typography';
 import steps from './StepperData'
 
 const styles = theme => ({
@@ -20,19 +20,6 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit,
   },
 });
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return 'Select campaign settings...';
-    case 1:
-      return 'What is an ad group anyways?';
-    case 2:
-      return 'This is the bit I really care about!';
-    default:
-      return 'Unknown step';
-  }
-}
 
 class FeedbackStepper extends React.Component {
   state = {
@@ -72,7 +59,7 @@ class FeedbackStepper extends React.Component {
             );
           })}
         </Stepper>
-        <div>
+        {/* <div>
           {activeStep === steps.length ? (
             <div>
               <Typography className={classes.instructions}>
@@ -114,7 +101,7 @@ class FeedbackStepper extends React.Component {
               </div>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     );
   }

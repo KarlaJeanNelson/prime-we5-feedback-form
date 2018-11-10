@@ -79,6 +79,7 @@ class Comments extends Component {
 	clearReduxState = () => {
 		this.props.dispatch({
 			type: 'CLEAR_STATE',
+			submitted: 1,
 		})
 	}
 
