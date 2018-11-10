@@ -10,6 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import MoodIcon from '@material-ui/icons/Mood';
 import MoodBadIcon from '@material-ui/icons/MoodBad';
@@ -74,18 +75,24 @@ class Feeling extends Component {
 										onChange={this.handleChange}
 										row>
 											<FormControlLabel value="1" label="1" control=
-												{<Radio 
-													icon={<MoodBadIcon />}
-													checkedIcon={<RadioButtonCheckedIcon />}
-												/>} />
+												{<Tooltip title="I feel lousy" placement="left">
+													<Radio 
+														icon={<MoodBadIcon />}
+														checkedIcon={<RadioButtonCheckedIcon />}
+													/>
+												</Tooltip>}
+											/>
 											<FormControlLabel value="2" label="2" control={<Radio />} />
 											<FormControlLabel value="3" label="3" control={<Radio />} />
 											<FormControlLabel value="4" label="4" control={<Radio />} />
 											<FormControlLabel value="5" label="5" control=
-												{<Radio 
-													icon={<MoodIcon />}
-													checkedIcon={<RadioButtonCheckedIcon />}
-												/>} />
+												{<Tooltip title="I feel stupendous!" placement="right">
+													<Radio 
+														icon={<MoodIcon />}
+														checkedIcon={<RadioButtonCheckedIcon />}
+													/>
+												</Tooltip>}
+											/>
 									</RadioGroup>
 								</FormControl>
 							</CardContent>

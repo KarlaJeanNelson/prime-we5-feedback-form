@@ -18,7 +18,7 @@ const styles = theme => ({
 	},
 	title: {
 		flexGrow: 1,
-		fontFamily: "'share tech mono', sans-serif",
+		fontFamily: "'Cherry Swash', sans-serif",
 		fontSize: '2rem',
 		fontWeight: 'bold',
 		margin: theme.spacing.unit * 2

@@ -17,19 +17,14 @@ import registerServiceWorker from './registerServiceWorker';
 import 'typeface-roboto';
 import 'typeface-karla';
 import 'typeface-share-tech-mono';
+import 'typeface-cherry-swash';
 import './index.css';
-
-// const initialState = {
-// 	message: 'Welcome to Feedback Frenzy!',
-// 	feeling: 0,
-// 	understanding: 0,
-// 	support: 0,
-// 	comments: '',
-// 	nextPage: '',
-// }
 
 const feedbackApp = (state = {}, action) => {
 	switch (action.type) {
+		case 'SET_DATE':
+			state.date = action.date;
+			return state;
 		case 'SET_STATE':
 			state.message = action.message;
 			state.nextPage = action.nextPage;
