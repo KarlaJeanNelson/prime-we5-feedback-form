@@ -4,17 +4,16 @@ import { withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Grid from '@material-ui/core/Grid';
-// import Button from '@material-ui/core/Button';
-// import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import steps from './StepperData'
 
 const styles = theme => ({
   root: {
 		flexGrow: 1,
-		textAlign: 'center',
-  },
+	},
   button: {
-    marginRight: theme.spacing.unit,
+    margin: theme.spacing.unit,
   },
   instructions: {
     marginTop: theme.spacing.unit,
@@ -22,8 +21,17 @@ const styles = theme => ({
   },
 });
 
-function getSteps() {
-  return ['Feeling', 'Comprehension', 'Support', 'Comments'];
+function getStepContent(step) {
+  switch (step) {
+    case 0:
+      return 'Select campaign settings...';
+    case 1:
+      return 'What is an ad group anyways?';
+    case 2:
+      return 'This is the bit I really care about!';
+    default:
+      return 'Unknown step';
+  }
 }
 
 class FeedbackStepper extends React.Component {
@@ -32,10 +40,9 @@ class FeedbackStepper extends React.Component {
   };
 
   handleNext = () => {
-    const { activeStep } = this.state;
-    this.setState({
-      activeStep: activeStep + 1
-    });
+    this.setState(state => ({
+      activeStep: state.activeStep + 1,
+    }));
   };
 
   handleBack = () => {
@@ -50,32 +57,65 @@ class FeedbackStepper extends React.Component {
     });
   };
 
-
   render() {
     const { classes } = this.props;
-    const steps = getSteps();
     const { activeStep } = this.state;
 
     return (
       <div className={classes.root}>
-				<Grid container>
-					<Grid item sm={2}></Grid>
-					<Grid item xs={12} sm={8}>
-						<Stepper activeStep={activeStep}>
-							{steps.map((label, index) => {
-								const props = {};
-								const labelProps = {};
-								return (
-									<Step key={label} {...props}>
-										<StepLabel {...labelProps}>{label}</StepLabel>
-									</Step>
-								);
-							})}
-						</Stepper>
-					</Grid>
-					<Grid item sm={2}></Grid>
-				</Grid>
-			</div>
+        <Stepper activeStep={activeStep}>
+          {steps.map((step, index) => {
+            return (
+              <Step key={index}>
+                <StepLabel>{step.name}</StepLabel>
+              </Step>
+            );
+          })}
+        </Stepper>
+        <div>
+          {activeStep === steps.length ? (
+            <div>
+              <Typography className={classes.instructions}>
+                All steps completed - you&quot;re finished
+              </Typography>
+              <Button onClick={this.handleReset} className={classes.button}>
+                Reset
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+              <div>
+                <Button
+                  disabled={activeStep === 0}
+                  onClick={this.handleBack}
+                  className={classes.button}
+                >
+                  Back
+                </Button>
+                {this.isStepOptional(activeStep) && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={this.handleSkip}
+                    className={classes.button}
+                  >
+                    Skip
+                  </Button>
+                )}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={this.handleNext}
+                  className={classes.button}
+                >
+                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     );
   }
 }
